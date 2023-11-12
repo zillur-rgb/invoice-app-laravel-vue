@@ -2,14 +2,24 @@
 import { onMounted, ref } from "vue";
 
 let invoices = ref([]);
+let searchInvoice = ref([]);
 
 onMounted(async () => {
     getInvoices();
+    // searchInvoices();
 });
 
 const getInvoices = async () => {
     let res = await axios.get("/api/get-all-invoices");
     // console.log("response ", res);
+    invoices.value = res.data.invoices;
+};
+
+const searchInvoices = async () => {
+    const res = await axios.get(
+        `/api/search-invoices?s=${searchInvoice.value}`
+    );
+    // console.log("Response", res.data.invoices);
     invoices.value = res.data.invoices;
 };
 </script>
@@ -59,6 +69,8 @@ const getInvoices = async () => {
                             class="table--search--input"
                             type="text"
                             placeholder="Search invoice"
+                            v-model="searchInvoice"
+                            @keyup="searchInvoices()"
                         />
                     </div>
                 </div>
