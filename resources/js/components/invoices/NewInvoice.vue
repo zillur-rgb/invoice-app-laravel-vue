@@ -8,10 +8,12 @@ let item = ref([]);
 let listCart = ref([]);
 const showModal = ref(false);
 const hideModal = ref(true);
+let listProducts = ref([]);
 
 onMounted(async () => {
     indexForm();
     getAllCustomers();
+    getProducts();
 });
 
 const indexForm = async () => {
@@ -35,6 +37,7 @@ const addCart = (item) => {
         quantity: item.quantity,
     };
     listCart.value.push(itemCart);
+    closeModal();
 };
 
 const openModal = () => {
@@ -43,6 +46,16 @@ const openModal = () => {
 
 const closeModal = () => {
     showModal.value = !showModal.value;
+};
+
+const getProducts = async () => {
+    let res = await axios.get("/api/all-products");
+    // console.log("products ", res.data);
+    listProducts.value = res.data.products;
+};
+
+const removeItem = (i) => {
+    listCart.value.splice(i, 1);
 };
 </script>
 
@@ -146,7 +159,10 @@ const closeModal = () => {
                             $ {{ itemCart.quantity * itemCart.unit_price }}
                         </p>
                         <p v-else></p>
-                        <p style="color: red; font-size: 24px; cursor: pointer">
+                        <p
+                            style="color: red; font-size: 24px; cursor: pointer"
+                            @click="removeItem(i)"
+                        >
                             &times;
                         </p>
                     </div>
@@ -203,10 +219,34 @@ const closeModal = () => {
                 <hr />
                 <br />
                 <div class="modal__items">
-                    <select class="input my-1">
-                        <option value="None">None</option>
-                        <option value="None">LBC Padala</option>
-                    </select>
+                    <ul style="list-style: none">
+                        <li
+                            v-for="(item, i) in listProducts"
+                            :key="item.id"
+                            style="
+                                display: grid;
+                                grid-template-columns: 30px 350px 15px;
+                                align-items: center;
+                                padding-bottom: 5px;
+                            "
+                        >
+                            <p>{{ i + 1 }}</p>
+                            <a href="#"
+                                >{{ item.item_code }} {{ item.description }}</a
+                            >
+                            <button
+                                @click="addCart(item)"
+                                style="
+                                    border: 1px solid #e0e0e0;
+                                    height: 35px;
+                                    width: 35px;
+                                    cursor: pointer;
+                                "
+                            >
+                                +
+                            </button>
+                        </li>
+                    </ul>
                 </div>
                 <br />
                 <hr />
