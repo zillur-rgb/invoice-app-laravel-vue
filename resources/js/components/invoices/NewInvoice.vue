@@ -1,13 +1,15 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let form = ref([]);
 let allCustomers = ref({});
-let customer_id = ref([]);
+let customerId = ref([]);
 let item = ref([]);
 let listCart = ref([]);
 const showModal = ref(false);
-const hideModal = ref(true);
 let listProducts = ref([]);
 
 onMounted(async () => {
@@ -70,6 +72,36 @@ const subtotal = () => {
 const total = () => {
     return subtotal() - form.value.discount;
 };
+
+const onSave = () => {
+    if (listCart.value.length >= 1) {
+        let subTotal = 0;
+        subTotal = subtotal();
+
+        let totalPrice = 0;
+        totalPrice = total();
+        console.log("listCart.value", listCart.value);
+
+        const formData = new FormData();
+        formData.append("invoice_item", JSON.stringify(listCart.value));
+        formData.append("customerId", customerId.value);
+        formData.append("date", form.value.date);
+        formData.append("due_date", form.value.due_date);
+        formData.append("number", form.value.number);
+        formData.append("reference", form.value.reference);
+        formData.append("discount", form.value.discount);
+        formData.append("subTotal", subTotal);
+        formData.append("total", totalPrice);
+        formData.append(
+            "terms_and_conditions",
+            form.value.terms_and_conditions
+        );
+
+        axios.post("/api/add-invoice", formData);
+        listCart.value = [];
+        router.push("/");
+    }
+};
 </script>
 
 <template>
@@ -90,7 +122,7 @@ const total = () => {
                             name=""
                             id=""
                             class="input"
-                            v-model="customer_id"
+                            v-model="customerId"
                         >
                             <option disabled>Select Customer</option>
                             <option
@@ -222,7 +254,7 @@ const total = () => {
             <div class="card__header" style="margin-top: 40px">
                 <div></div>
                 <div>
-                    <a class="btn btn-secondary"> Save </a>
+                    <a class="btn btn-secondary" @click="onSave()"> Save </a>
                 </div>
             </div>
         </div>
