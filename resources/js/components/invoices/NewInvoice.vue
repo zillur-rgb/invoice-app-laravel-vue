@@ -57,6 +57,19 @@ const getProducts = async () => {
 const removeItem = (i) => {
     listCart.value.splice(i, 1);
 };
+
+const subtotal = () => {
+    let total = 0;
+    listCart.value.map(
+        (data) => (total = total + data.quantity * data.unit_price)
+    );
+
+    return total;
+};
+
+const total = () => {
+    return subtotal() - form.value.discount;
+};
 </script>
 
 <template>
@@ -183,20 +196,25 @@ const removeItem = (i) => {
                             cols="50"
                             rows="7"
                             class="textarea"
+                            v-model="form.terms_and_conditions"
                         ></textarea>
                     </div>
                     <div>
                         <div class="table__footer--subtotal">
                             <p>Sub Total</p>
-                            <span>$ 1000</span>
+                            <span>$ {{ subtotal() }}</span>
                         </div>
                         <div class="table__footer--discount">
                             <p>Discount</p>
-                            <input type="text" class="input" />
+                            <input
+                                type="text"
+                                class="input"
+                                v-model="form.discount"
+                            />
                         </div>
                         <div class="table__footer--total">
                             <p>Grand Total</p>
-                            <span>$ 1200</span>
+                            <span>$ {{ total() }}</span>
                         </div>
                     </div>
                 </div>
