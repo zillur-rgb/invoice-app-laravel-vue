@@ -1,3 +1,26 @@
+<script setup>
+import { onMounted, ref } from "vue";
+
+let form = ref({ id: "" });
+
+const props = defineProps({
+    id: {
+        type: String,
+        default: "",
+    },
+});
+
+onMounted(async () => {
+    getInvoice();
+});
+
+const getInvoice = async () => {
+    let res = await axios.get(`/api/show-invoice/${props.id}`);
+    // console.log("response of single", res.data);
+    form.value = res.data.invoice;
+};
+</script>
+
 <template>
     <div class="container">
         <div class="invoices">
