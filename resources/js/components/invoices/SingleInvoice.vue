@@ -1,5 +1,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let form = ref({ id: "" });
 
@@ -18,6 +21,11 @@ const getInvoice = async () => {
     let res = await axios.get(`/api/show-invoice/${props.id}`);
     console.log("response of single", res.data);
     form.value = res.data.invoice;
+};
+
+const print = () => {
+    window.print();
+    router.push("/").catch(() => {});
 };
 </script>
 
@@ -40,7 +48,7 @@ const getInvoice = async () => {
                     <ul class="card__header-list">
                         <li>
                             <!-- Select Btn Option -->
-                            <button class="selectBtnFlat">
+                            <button class="selectBtnFlat" @click="print()">
                                 <i class="fas fa-print"></i>
                                 Print
                             </button>
