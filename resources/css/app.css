@@ -383,3 +383,214 @@ ul {
 .mr-2 {
     margin-right: 20px;
 }
+
+/*========== SHOW INVOICE ==========*/
+
+.card__header--title {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card__header--title h1 {
+    padding-right: 5px;
+}
+
+.card__header-list {
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.invoice {
+    background: white;
+    color: black;
+}
+
+.logo {
+    padding-top: 40px;
+    padding-left: 25px;
+    height: 60px;
+    padding-bottom: 15px;
+}
+
+.invoice__header--title {
+    background-color: #fca120;
+    display: grid;
+    grid-template-columns: 65% 1fr 1fr;
+    margin-top: 80px;
+}
+
+.invoice__header--title-1 {
+    font: bold 100% sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background-color: white;
+    text-align: center;
+    font-size: 36px;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.invoice__header--item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 200px;
+    padding: 40px;
+}
+
+.invoice__header--item1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.invoice__header--item1 p {
+    font-size: 20px;
+}
+
+.invoice__header--item1 span {
+    font-size: 20px;
+}
+
+.invoice__header--item2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.invoice__header--item2 p {
+    font-size: 20px;
+}
+
+.invoice__header--item2 span {
+    font-size: 20px;
+}
+
+.table--heading3 {
+    display: grid;
+    grid-template-columns: 25px 500px 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding: 10px 30px !important;
+    font-weight: 900;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+
+.py1 {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.selectBtnFlat {
+    border: none;
+    padding: 9px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    color: #fff;
+    background: none;
+}
+
+.table--items3 {
+    display: grid;
+    grid-template-columns: 25px 500px 1fr 1fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 30px !important;
+    font-size: 16px;
+    color: black;
+}
+
+.table--items--transactionId3 {
+    color: black;
+    font-weight: 500;
+}
+
+.invoice__subtotal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 200px;
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.invoice__subtotal--item1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.invoice__subtotal--item1 p {
+    font-size: 20px;
+    padding-left: 55px;
+}
+
+.invoice__subtotal--item1 span {
+    font-size: 20px;
+}
+
+.invoice__subtotal--item2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.invoice__subtotal--item2 p {
+    font-size: 20px;
+    padding-left: 55px;
+}
+
+.invoice__subtotal--item2 span {
+    font-size: 20px;
+}
+
+.invoice__total {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 150px;
+    padding: 25px;
+}
+
+.grand__total {
+    margin-top: 50px;
+    background-color: #fca120;
+    color: black;
+}
+
+.grand__total--items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 0.5in;
+    padding-right: 0.5in;
+    font-size: 26px;
+}
+
+.grand__total--items p {
+    font-size: 26px;
+}
+
+.grand__total--items span {
+    font-size: 26px;
+}
+.card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
