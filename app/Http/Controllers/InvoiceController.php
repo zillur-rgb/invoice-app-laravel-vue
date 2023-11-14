@@ -87,7 +87,7 @@ class InvoiceController extends Controller
             $itemData['product_id'] = $item->id;
             $itemData['invoice_id'] = $invoice->id;
             $itemData['quantity'] = $item->quantity;
-            $itemData['unti_price'] = $item->unit_price;
+            $itemData['unit_price'] = $item->unit_price;
 
             InvoiceItem::create($itemData);
         };
