@@ -16,7 +16,7 @@ onMounted(async () => {
 
 const getInvoice = async () => {
     let res = await axios.get(`/api/show-invoice/${props.id}`);
-    // console.log("response of single", res.data);
+    console.log("response of single", res.data);
     form.value = res.data.invoice;
 };
 </script>
@@ -32,8 +32,8 @@ const getInvoice = async () => {
             </div>
             <div>
                 <div class="card__header--title">
-                    <h1 class="mr-2">#1043</h1>
-                    <p>July 17, 2020 at 3:28 am</p>
+                    <h1 class="mr-2">#{{ form.id }}</h1>
+                    <p>{{ form.created_at }}</p>
                 </div>
 
                 <div>
@@ -83,24 +83,30 @@ const getInvoice = async () => {
                 <div class="invoice__header--item">
                     <div>
                         <h2>Invoice To:</h2>
-                        <p>Customer 1</p>
+                        <p v-if="form.customer">
+                            {{ form.customer.firstname }}
+                        </p>
+                        <p v-else></p>
                     </div>
                     <div>
                         <div class="invoice__header--item1">
                             <p>Invoice#</p>
-                            <span>#1200</span>
+                            <span>#{{ form.number }} </span>
                         </div>
                         <div class="invoice__header--item2">
                             <p>Date</p>
-                            <span>12/12/2022</span>
+                            <span>{{ form.date }}</span>
                         </div>
                         <div class="invoice__header--item2">
                             <p>Due Date</p>
-                            <span>12/12/2022</span>
+                            <span>{{ form.due_date }}</span>
                         </div>
                         <div class="invoice__header--item2">
                             <p>Reference</p>
-                            <span>1045</span>
+                            <span v-if="form.reference">{{
+                                form.reference
+                            }}</span>
+                            <span v-else></span>
                         </div>
                     </div>
                 </div>
@@ -115,12 +121,16 @@ const getInvoice = async () => {
                     </div>
 
                     <!-- item 1 -->
-                    <div class="table--items3">
-                        <p>1</p>
-                        <p>Lorem Ipsum is simply dummy text</p>
-                        <p>$ 300</p>
-                        <p>1</p>
-                        <p>$ 300</p>
+                    <div
+                        class="table--items3"
+                        v-for="(item, i) in form.invoice_items"
+                        :key="item.id"
+                    >
+                        <p>{{ i + 1 }}</p>
+                        <p>{{ item.product.description }}</p>
+                        <p>$ {{ item.unit_price }}</p>
+                        <p>{{ item.quantity }}</p>
+                        <p>$ {{ item.unit_price * item.quantity }}</p>
                     </div>
                 </div>
 
@@ -131,11 +141,11 @@ const getInvoice = async () => {
                     <div>
                         <div class="invoice__subtotal--item1">
                             <p>Sub Total</p>
-                            <span> $ 1200</span>
+                            <span> $ {{ form.sub_total }}</span>
                         </div>
                         <div class="invoice__subtotal--item2">
                             <p>Discount</p>
-                            <span>$ 100</span>
+                            <span>$ {{ form.discount }}</span>
                         </div>
                     </div>
                 </div>
@@ -144,15 +154,14 @@ const getInvoice = async () => {
                     <div>
                         <h2>Terms and Conditions</h2>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry.
+                            {{ form.terms_and_conditions }}
                         </p>
                     </div>
                     <div>
                         <div class="grand__total">
                             <div class="grand__total--items">
                                 <p>Grand Total</p>
-                                <span>$ 1100</span>
+                                <span>$ {{ form.total }}</span>
                             </div>
                         </div>
                     </div>
